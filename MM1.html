@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MM1</title>
+  <style>
+    body {
+        font-family: 'Helvetica Neue', sans-serif;
+        background-color: #f4f4f4;
+        color: #444;
+        margin: 0;
+        padding: 0;
+    }
+
+    nav {
+        background-color: #2c3e50;
+        padding: 15px;
+        text-align: center;
+    }
+
+    nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    nav ul li {
+        margin-right: 20px;
+    }
+
+    nav ul li a {
+        color: #ecf0f1;
+        text-decoration: none;
+        padding: 10px 15px;
+        background-color: #34495e;
+        display: inline-block;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+        background-color: #1abc9c;
+    }
+
+    form {
+        margin-top: 30px;
+        padding: 25px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    fieldset {
+        border: 1px solid #ccc;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #fff;
+    }
+
+    .form-group:nth-child(odd) {
+        background-color: #f9f9f9;
+    }
+
+    label {
+        width: 45%;
+        font-weight: 600;
+        color: #555;
+    }
+
+    input[type="text"] {
+        width: 50%;
+        padding: 12px;
+        border: 2px solid #bdc3c7;
+        border-radius: 5px;
+        font-size: 18px;
+        box-sizing: border-box;
+    }
+
+    button[type="submit"] {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #e74c3c;
+        border: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #c0392b;
+    }
+
+    h3 {
+        margin-top: 30px;
+        font-size: 24px;
+        font-weight: 600;
+        text-align: center;
+        color: #333;
+    }
+
+    p {
+        margin-bottom: 15px;
+        color: #666;
+        font-size: 14px;
+    }
+
+    legend {
+        font-size: 22px;
+        font-weight: bold;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #2980b9;
+        color: #fff;
+        text-align: center;
+    }
+
+    div {
+        text-align: center;
+        margin-top: 25px;
+    }
+</style>
+
+
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="MM1.html">MM1</a></li>
+      <li><a href="MMm.html">MMM</a></li>
+      <li><a href="MD1.html">MD1</a></li>
+    </ul>
+  </nav>
+  <form method="post" action="MM1.html">
+    <fieldset>
+      <legend>MM1</legend>
+      <div class="form-group">
+        <label>m</label>
+        <input type="text" class="form-control" name="m" placeholder="" style="width: 615px">
+      </div>
+      <div class="form-group">
+        <label>μ</label>
+        <input type="text" class="form-control" name="μ" placeholder="" style="width: 615px">
+      </div>
+      <div class="form-group">
+        <label>λ</label>
+        <input type="text" class="form-control" name="λ" placeholder="" style="width: 615px">
+      </div>
+      <div class="form-group">
+        <label>K</label>
+        <input type="text" class="form-control" name="K" placeholder="" style="width: 615px">
+      </div>
+      <div class="form-group">
+        <label>Tiempo</label>
+        <input type="text" class="form-control" name="tiempo" placeholder="" style="width: 615px">
+      </div>
+      <div class="form-group">
+        <label>Cw</label>
+        <input type="text" class="form-control" name="cw" placeholder="" style="width: 615px">
+      </div>
+      <div class="form-group">
+        <label>Cs</label>
+        <input type="text" class="form-control" name="cs" placeholder="" style="width: 615px">
+      </div>
+      <fieldset>
+        <button type="submit" class="btn btn-success" name="aceptar">Calcular</button>
+      </fieldset>
+    </fieldset>
+  </form>
+
+  <br>
+
+  <div>
+    <legend>Resultados</legend>
+    <p id="costoEsperaDiario"></p>
+    <p id="costoTotalServicioDiario"></p>
+    <p id="costoTotal"></p>
+    <p id="L"></p>
+    <p id="w"></p>
+    <p id="Lq"></p>
+    <p id="Wq"></p>
+    <p id="Ro"></p>
+    <p id="PO"></p>
+  </div>
+
+  <script>
+    function calculateForm() {
+      var m = document.getElementsByName("m")[0].value;
+      var mu = document.getElementsByName("μ")[0].value;
+      var lamda = document.getElementsByName("λ")[0].value;
+      var K = document.getElementsByName("K")[0].value;
+      var tiempo = document.getElementsByName("tiempo")[0].value;
+      var Cw = document.getElementsByName("cw")[0].value;
+      var Cs = document.getElementsByName("cs")[0].value;
+
+      
+      var lamdaElevado2 = Math.pow(lamda, 2);
+      var Lq = (lamdaElevado2 / (mu * (mu - lamda)));
+      var Wq = (lamda / mu) * (mu - lamda);
+      var Ro = lamda / mu;
+      var PO = 1 - lamda / mu;
+      var pnK = Math.pow(lamda / mu, parseInt(K) + 1);
+      var L = Lq + (1 - PO);
+      var w = Wq + (1 / mu);
+
+      var costoEsperaDiario = tiempo * lamda * Wq * Cw;
+      var costoTotalServicioDiario = Cs * m * tiempo;
+      var costoTotal = costoEsperaDiario + costoTotalServicioDiario;
+
+      document.getElementById("costoEsperaDiario").innerHTML = "Costo espera diario: " + costoEsperaDiario;
+      document.getElementById("costoTotalServicioDiario").innerHTML = "Costo total servicio diario: " + costoTotalServicioDiario;
+      document.getElementById("costoTotal").innerHTML = "Costo total: " + costoTotal;
+      document.getElementById("L").innerHTML = "L: " + L;
+      document.getElementById("w").innerHTML = "w: " + w + " Tiempo sistema promedio: " + (w * 60);
+      document.getElementById("Lq").innerHTML = "Lq: " + Lq;
+      document.getElementById("Wq").innerHTML = "Wq: " + Wq + " Tiempo promedio espera: " + (Wq * 60);
+      document.getElementById("Ro").innerHTML = "Ro: " + Ro;
+      document.getElementById("PO").innerHTML = "PO: " + PO;
+      document.getElementById("pnK").innerHTML = "pn>K: " + pnK;
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      var form = document.querySelector("form");
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        calculateForm();
+      });
+    });
+  </script>
+</body>
+</html>
